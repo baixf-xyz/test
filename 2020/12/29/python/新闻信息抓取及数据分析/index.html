@@ -1,0 +1,1517 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/pi.jpg">
+  <link rel="icon" type="image/png" href="/img/pi.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="白小飞">
+  <meta name="keywords" content="">
+  <title>新闻信息抓取及数据分析 - 白小飞のblog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"blog.baixf.tk","root":"/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":"32cfe221d23ea3ac2ca847f1e865c570","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>白小飞のBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('https://gitee.com/bai_xiao_fei/picture/raw/master/PicGo/000.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="新闻信息抓取及数据分析">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-12-29 22:44" pubdate>
+        2020年12月29日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      7.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      112
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">新闻信息抓取及数据分析</h1>
+            
+            <div class="markdown-body">
+              <h1 id="一-数据抓取"><a href="#一-数据抓取" class="headerlink" title="一.数据抓取"></a>一.数据抓取</h1><p>本次爬虫目标网站是中国社会组织公共服务平台。</p>
+<p><strong>第一步 分析网站</strong></p>
+<p>通过浏览器“审查元素”查看源代码并获取新闻的标题、URL、时间等。不同网站有不同分析方法，本文重点是文本挖掘分析。</p>
+<p><img src="https://gitee.com/bai_xiao_fei/picture/raw/master/2020-12-29/1609246729599-image.png" srcset="/img/loading.gif" alt=""></p>
+<p><strong>第二步，进入具体的新闻页面抓取相关的文本信息。</strong></p>
+<ul>
+<li>article_title = text_html.xpath(’//*[@id=“fontinfo”]/p[2]/b[1]//text()’)</li>
+<li>publish_time = text_html.xpath(’/html/body/div[2]/div/ul[1]/li[3]/strong/text()’)[0][5:]</li>
+<li>source_text = text_html.xpath(’//*[@id=“fontinfo”]/p[last()]//text()’)[0]</li>
+<li>text_list = text_html.xpath(’//*[@id=“fontinfo”]//text()’)</li>
+</ul>
+<p><img src="https://gitee.com/bai_xiao_fei/picture/raw/master/2020-12-29/1609246808313-image.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://gitee.com/bai_xiao_fei/picture/raw/master/2020-12-29/1609246797376-image.png" srcset="/img/loading.gif" alt=""></p>
+<p><strong>第三步，本爬虫存在一个技巧，每条新闻的URL非常相似，这里仅变换参数来抓取新闻。</strong></p>
+<ul>
+<li>最初一篇新闻（2020-10-13）URL：<a target="_blank" rel="noopener" href="http://www.chinanpo.gov.cn/1944/128010/index.html">http://www.chinanpo.gov.cn/1944/128010/index.html</a></li>
+<li>最后一篇新闻（2020-01-26）URL：<a target="_blank" rel="noopener" href="http://www.chinanpo.gov.cn/1944/123496/nextindex.html">http://www.chinanpo.gov.cn/1944/123496/nextindex.html</a></li>
+</ul>
+<p>我们只需要每次抓取数据时，通过“下一页”定位下次需要抓取的URL即可，核心代码为：</p>
+<ul>
+<li>next_url = “<a target="_blank" rel="noopener" href="http://www.chinanpo.gov.cn”">http://www.chinanpo.gov.cn”</a> + text_html.xpath(’/html/body/div[2]/div/ul[1]/li[2]/a[2]/@href’)[0]</li>
+</ul>
+<p><img src="https://gitee.com/bai_xiao_fei/picture/raw/master/2020-12-29/1609246850596-image.png" srcset="/img/loading.gif" alt=""></p>
+<p><strong>第四步，数据抓取完整代码如下所示。</strong></p>
+<pre><code class="hljs python"><span class="hljs-keyword">import</span> requests,re, csv, sys, time
+<span class="hljs-keyword">from</span> lxml <span class="hljs-keyword">import</span> html
+<span class="hljs-keyword">from</span> fake_useragent <span class="hljs-keyword">import</span> UserAgent
+
+<span class="hljs-comment"># 记录起始时间</span>
+startTime = time.time()
+
+<span class="hljs-comment"># 创建CSV文件，并写入表头信息</span>
+fp = <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;中国社会组织_疫情防控.csv&#x27;</span>,<span class="hljs-string">&#x27;a&#x27;</span>,newline=<span class="hljs-string">&#x27;&#x27;</span>,encoding=<span class="hljs-string">&#x27;utf-8-sig&#x27;</span>)
+writer = csv.writer(fp)
+writer.writerow((<span class="hljs-string">&quot;标题&quot;</span>, <span class="hljs-string">&quot;时间&quot;</span>, <span class="hljs-string">&quot;URL&quot;</span>, <span class="hljs-string">&quot;正文内容&quot;</span>, <span class="hljs-string">&quot;来源&quot;</span>))
+
+<span class="hljs-comment">#----------------------------------------------抓取数据----------------------------------------------</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">spider_html_info</span>(<span class="hljs-params">url</span>):</span>
+    <span class="hljs-keyword">try</span>:
+        headers = &#123;
+            <span class="hljs-string">&quot;User-Agent&quot;</span> : UserAgent().chrome <span class="hljs-comment">#chrome浏览器随机代理</span>
+        &#125;
+        response = requests.get(url=url, headers=headers).text
+        text_html = html.fromstring(response)
+        
+        <span class="hljs-comment"># 获取下一页链接,先其他元素获取一页链接，保证程序的强壮性</span>
+        next_url = <span class="hljs-string">&quot;http://www.chinanpo.gov.cn&quot;</span> + text_html.xpath(<span class="hljs-string">&#x27;/html/body/div[2]/div/ul[1]/li[2]/a[2]/@href&#x27;</span>)[<span class="hljs-number">0</span>]
+        print(<span class="hljs-string">&quot;next_url&quot;</span>, next_url)
+    
+        <span class="hljs-comment"># 获取文章标题</span>
+        article_title = text_html.xpath(<span class="hljs-string">&#x27;//*[@id=&quot;fontinfo&quot;]/p[2]/b[1]//text()&#x27;</span>)
+        title = <span class="hljs-string">&quot;&quot;</span>.join(article_title)
+        <span class="hljs-keyword">if</span> title == <span class="hljs-string">&quot;&quot;</span>:
+            title = <span class="hljs-string">&quot;&quot;</span>.join(text_html.xpath(<span class="hljs-string">&#x27;//*[@id=&quot;fontinfo&quot;]/p[3]/b[1]//text()&#x27;</span>))
+        <span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;title = &quot;</span>,title)
+        
+        <span class="hljs-comment"># 获取发布时间</span>
+        publish_time = text_html.xpath(<span class="hljs-string">&#x27;/html/body/div[2]/div/ul[1]/li[3]/strong/text()&#x27;</span>)[<span class="hljs-number">0</span>][<span class="hljs-number">5</span>:]
+        <span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;publish_time = &quot;</span>, publish_time)
+        <span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;url = &quot;</span>, url)
+        
+        <span class="hljs-comment"># 获取来源</span>
+        source_text = text_html.xpath(<span class="hljs-string">&#x27;//*[@id=&quot;fontinfo&quot;]/p[last()]//text()&#x27;</span>)[<span class="hljs-number">0</span>]
+        source = source_text[<span class="hljs-number">3</span>:]
+        
+        <span class="hljs-comment"># 爬取文本</span>
+        text_list = text_html.xpath(<span class="hljs-string">&#x27;//*[@id=&quot;fontinfo&quot;]//text()&#x27;</span>)
+        article_text = <span class="hljs-string">&quot;&quot;</span>.join(text_list).replace(<span class="hljs-string">&#x27;\r\n&#x27;</span>,<span class="hljs-string">&#x27;&#x27;</span>).replace(<span class="hljs-string">&quot;\xa0&quot;</span>, <span class="hljs-string">&quot;&quot;</span>).replace(<span class="hljs-string">&quot;\t&quot;</span>, <span class="hljs-string">&quot;&quot;</span>).replace(source_text,<span class="hljs-string">&quot;&quot;</span>).replace(title, <span class="hljs-string">&quot;&quot;</span>)    
+        <span class="hljs-comment"># print (&quot;article_text&quot;, article_text)</span>
+        <span class="hljs-comment"># print (&quot;source = &quot;, source)</span>
+        writer.writerow((title, publish_time, url, article_text, source))
+    <span class="hljs-keyword">except</span>:
+        <span class="hljs-keyword">pass</span>
+    
+    <span class="hljs-keyword">if</span> url == <span class="hljs-string">&#x27;http://www.chinanpo.gov.cn/1944/123496/index.html&#x27;</span>:
+        fp.close()
+        <span class="hljs-comment"># 获取结束时的时间</span>
+        endTime =time.time()           
+        useTime =(endTime-startTime)/<span class="hljs-number">60</span>
+        <span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;该次所获的信息一共使用%s分钟&quot;</span>%useTime)
+        <span class="hljs-comment"># 正常退出程序</span>
+        sys.exit(<span class="hljs-number">0</span>)       
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">return</span> next_url
+
+<span class="hljs-comment">#----------------------------------------------主函数----------------------------------------------</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">main</span>():</span>
+    url = <span class="hljs-string">&quot;http://www.chinanpo.gov.cn/1944/125177/nextindex.html&quot;</span> <span class="hljs-comment"># 125177第一篇文章</span>
+    count = <span class="hljs-number">1</span>
+    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+        <span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;正在爬取第%s篇：&quot;</span>%count, url)
+        next_url = spider_html_info(url)
+        url = next_url
+        count = count + <span class="hljs-number">1</span>
+                
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:
+    main()</code></pre>
+<p>1.爬取运行截图</p>
+<p><img src="https://gitee.com/bai_xiao_fei/picture/raw/master/PicGo/QQ%E6%88%AA%E5%9B%BE20201229213018.png" srcset="/img/loading.gif" alt=""></p>
+<p>可能需要安装扩展包lxml和fake_useragent。</p>
+<p><img src="https://gitee.com/bai_xiao_fei/picture/raw/master/2020-12-29/1609247009230-20200306180836316.png" srcset="/img/loading.gif" alt=""></p>
+<h1 id="二-导入MongoDB"><a href="#二-导入MongoDB" class="headerlink" title="二.导入MongoDB"></a>二.导入MongoDB</h1><p>python中csv文件中数据添加到MongoDB数据库,使用csv中的DictReader函数读取。</p>
+<h2 id="1-代码"><a href="#1-代码" class="headerlink" title="1.代码"></a>1.代码</h2><pre><code class="hljs python"><span class="hljs-keyword">from</span> pymongo <span class="hljs-keyword">import</span> MongoClient
+<span class="hljs-keyword">import</span> csv
+<span class="hljs-comment"># 创建连接MongoDB数据库函数</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">connection</span>():</span>
+    <span class="hljs-comment"># 1:连接本地MongoDB数据库服务</span>
+    conn=MongoClient(<span class="hljs-string">&quot;mongodb://localhost:27017/&quot;</span>)
+    <span class="hljs-comment"># 2:连接本地数据库(guazidata)。没有时会自动创建</span>
+    db=conn.cncovdf
+    <span class="hljs-comment"># 3:创建集合</span>
+    set1=db.data
+    <span class="hljs-comment"># 4:看情况是否选择清空(两种清空方式，第一种不行的情况下，选择第二种)</span>
+    <span class="hljs-comment">#第一种直接remove</span>
+    set1.remove(<span class="hljs-literal">None</span>)
+    <span class="hljs-comment">#第二种remove不好用的时候</span>
+    <span class="hljs-comment"># set1.delete_many(&#123;&#125;)</span>
+    <span class="hljs-keyword">return</span> set1
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">insertToMongoDB</span>(<span class="hljs-params">set1</span>):</span>
+    <span class="hljs-comment"># 打开文件中国社会组织_疫情防控.csv</span>
+    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;中国社会组织_疫情防控.csv&#x27;</span>,<span class="hljs-string">&#x27;r&#x27;</span>,encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>,errors=<span class="hljs-string">&#x27;ignore&#x27;</span>)<span class="hljs-keyword">as</span> csvfile:
+        <span class="hljs-comment"># 调用csv中的DictReader函数直接获取数据为字典形式</span>
+        reader=csv.DictReader(csvfile)
+        <span class="hljs-comment"># 创建一个counts计数一下 看自己一共添加了了多少条数据</span>
+        counts=<span class="hljs-number">0</span>
+        <span class="hljs-keyword">for</span> each <span class="hljs-keyword">in</span> reader:
+            set1.insert(each)
+            counts+=<span class="hljs-number">1</span>
+            print(<span class="hljs-string">&#x27;成功添加了&#x27;</span>+<span class="hljs-built_in">str</span>(counts)+<span class="hljs-string">&#x27;条数据 &#x27;</span>)
+<span class="hljs-comment"># 创建主函数</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">main</span>():</span>
+    set1=connection()
+    insertToMongoDB(set1)
+<span class="hljs-comment"># 判断是不是调用的main函数。这样以后调用的时候就可以防止不会多次调用 或者函数调用错误</span>
+<span class="hljs-keyword">if</span> __name__==<span class="hljs-string">&#x27;__main__&#x27;</span>:
+    main()</code></pre>
+<h2 id="2-运行截图"><a href="#2-运行截图" class="headerlink" title="2.运行截图"></a>2.运行截图</h2><p><img src="https://gitee.com/bai_xiao_fei/picture/raw/master/2020-12-30/1609294320527-QQ%E6%88%AA%E5%9B%BE20201230100504.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://gitee.com/bai_xiao_fei/picture/raw/master/2020-12-30/1609294320525-QQ%E6%88%AA%E5%9B%BE20201230100447.png" srcset="/img/loading.gif" alt=""></p>
+<h1 id="三-中文分词及高频词统计"><a href="#三-中文分词及高频词统计" class="headerlink" title="三.中文分词及高频词统计"></a>三.中文分词及高频词统计</h1><h2 id="1-结巴分词"><a href="#1-结巴分词" class="headerlink" title="1.结巴分词"></a>1.结巴分词</h2><p>数据预处理是指在进行数据分析之前，对数据进行的一些初步处理，包括缺失值填写、噪声处理、不一致数据修正、中文分词等，其目标是得到更标准、高质量的数据，纠正错误异常数据，从而提升分析的结果。中文文本预处理的基本步骤，包括中文分词、词性标注、数据清洗、特征提取（向量空间模型存储）、权重计算（TF-IDF）等。</p>
+<p>“结巴”（Jieba）工具是最常用的中文文本分词和处理的工具之一，它能实现中文分词、词性标注、关键词抽取、获取词语位置等功能。其在Github网站上的介绍及下载地址为：<a target="_blank" rel="noopener" href="https://github.com/fxsjy/jieba">https://github.com/fxsjy/jieba</a></p>
+<p>调用命令“pip install jieba”安装jieba中文分词包如下图所示。<br><pre><code class="hljs python">pip install jieba</code></pre></p>
+<p><img src="https://gitee.com/bai_xiao_fei/picture/raw/master/2020-12-29/1609247076049-image.png" srcset="/img/loading.gif" alt=""></p>
+<p>Jieba具有以下特点：</p>
+<ul>
+<li>支持三种分词模式，包括精确模式、全模式和搜索引擎模式</li>
+<li>支持繁体分词</li>
+<li>支持自定义词典</li>
+<li>代码对Python2和Python3均兼容</li>
+<li>支持多种编程语言，包括Java、C++、Rust、PHP、R、Node.js等</li>
+</ul>
+<h2 id="2-基本用法"><a href="#2-基本用法" class="headerlink" title="2.基本用法"></a>2.基本用法</h2><p>首先读者看一段简单的结巴分词代码，主要调用两个函数实现。</p>
+<ul>
+<li>jieba.cut(text, cut_all=True)<br>分词函数，第一个参数是需要分词的字符串，第二个参数表示是否为全模式。分词返回的结果是一个可迭代的生成器（generator），可使用for循环来获取分词后的每个词语，更推荐读者转换为list列表再使用。</li>
+<li>jieba.cut_for_search(text)<br>搜索引擎模式分词，参数为分词的字符串，该方法适合用于搜索引擎构造倒排索引的分词，粒度比较细。<pre><code class="hljs python"><span class="hljs-comment">#encoding=utf-8  </span>
+<span class="hljs-keyword">import</span> jieba  
+  
+text = <span class="hljs-string">&quot;小杨毕业于北京理工大学，从事Python人工智能相关工作。&quot;</span>  
+
+<span class="hljs-comment">#全模式</span>
+data = jieba.cut(text,cut_all=<span class="hljs-literal">True</span>)
+print(<span class="hljs-built_in">type</span>(data))
+print(<span class="hljs-string">u&quot;[全模式]: &quot;</span>, <span class="hljs-string">&quot;/&quot;</span>.join(data))
+
+<span class="hljs-comment">#精确模式  </span>
+data = jieba.cut(text,cut_all=<span class="hljs-literal">False</span>)
+print(<span class="hljs-string">u&quot;[精确模式]: &quot;</span>, <span class="hljs-string">&quot;/&quot;</span>.join(data))
+
+<span class="hljs-comment">#默认是精确模式 </span>
+data = jieba.cut(text)  
+print(<span class="hljs-string">u&quot;[默认模式]: &quot;</span>, <span class="hljs-string">&quot;/&quot;</span>.join(data))
+
+<span class="hljs-comment">#搜索引擎模式 </span>
+data = jieba.cut_for_search(text)    
+print(<span class="hljs-string">u&quot;[搜索引擎模式]: &quot;</span>, <span class="hljs-string">&quot;/&quot;</span>.join(data))
+
+<span class="hljs-comment">#返回列表</span>
+seg_list = jieba.lcut(text, cut_all=<span class="hljs-literal">False</span>)
+print(<span class="hljs-string">&quot;[返回列表]: &#123;0&#125;&quot;</span>.<span class="hljs-built_in">format</span>(seg_list))</code></pre>
+输出结果如下图所示：</li>
+</ul>
+<p><img src="https://gitee.com/bai_xiao_fei/picture/raw/master/PicGo/QQ%E6%88%AA%E5%9B%BE20201229213350.png" srcset="/img/loading.gif" alt=""></p>
+<h2 id="3-获取疫情文本高频词"><a href="#3-获取疫情文本高频词" class="headerlink" title="3.获取疫情文本高频词"></a>3.获取疫情文本高频词</h2><p>接着我们将新闻正文文本“C-class.txt”数据进行中文分词，每行代表一条新闻，并生成对应的内容。<br><pre><code class="hljs python"><span class="hljs-comment"># coding=utf-8</span>
+<span class="hljs-keyword">import</span> jieba
+<span class="hljs-keyword">import</span> re
+<span class="hljs-keyword">import</span> time
+<span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> Counter
+
+<span class="hljs-comment">#------------------------------------中文分词------------------------------------</span>
+cut_words = <span class="hljs-string">&quot;&quot;</span>
+all_words = <span class="hljs-string">&quot;&quot;</span>
+f = <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;C-class-fenci.txt&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span> , encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>)
+<span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;C-class.txt&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>):
+    line.strip(<span class="hljs-string">&#x27;\n&#x27;</span>)
+    seg_list = jieba.cut(line,cut_all=<span class="hljs-literal">False</span>)
+    <span class="hljs-comment"># print(&quot; &quot;.join(seg_list))</span>
+    cut_words = (<span class="hljs-string">&quot; &quot;</span>.join(seg_list))
+    f.write(cut_words)
+    all_words += cut_words
+<span class="hljs-keyword">else</span>:
+    f.close()
+
+<span class="hljs-comment"># 输出结果</span>
+all_words = all_words.split()
+print(all_words)
+
+<span class="hljs-comment"># 词频统计</span>
+c = Counter()
+<span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> all_words:
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(x)&gt;<span class="hljs-number">1</span> <span class="hljs-keyword">and</span> x != <span class="hljs-string">&#x27;\r\n&#x27;</span>:
+        c[x] += <span class="hljs-number">1</span>
+
+<span class="hljs-comment"># 输出词频最高的前10个词</span>
+print(<span class="hljs-string">&#x27;\n词频统计结果：&#x27;</span>)
+<span class="hljs-keyword">for</span> (k,v) <span class="hljs-keyword">in</span> c.most_common(<span class="hljs-number">10</span>):
+    print(<span class="hljs-string">&quot;%s:%d&quot;</span>%(k,v))
+
+<span class="hljs-comment"># 存储数据</span>
+name = time.strftime(<span class="hljs-string">&quot;%Y-%m-%d&quot;</span>) + <span class="hljs-string">&quot;-fc.csv&quot;</span>
+fw = <span class="hljs-built_in">open</span>(name, <span class="hljs-string">&#x27;w&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>)
+i = <span class="hljs-number">1</span>
+<span class="hljs-keyword">for</span> (k,v) <span class="hljs-keyword">in</span> c.most_common(<span class="hljs-built_in">len</span>(c)):
+    fw.write(<span class="hljs-built_in">str</span>(i)+<span class="hljs-string">&#x27;,&#x27;</span>+<span class="hljs-built_in">str</span>(k)+<span class="hljs-string">&#x27;,&#x27;</span>+<span class="hljs-built_in">str</span>(v)+<span class="hljs-string">&#x27;\n&#x27;</span>)
+    i = i + <span class="hljs-number">1</span>
+<span class="hljs-keyword">else</span>:
+    print(<span class="hljs-string">&quot;Over write file!&quot;</span>)
+    fw.close()</code></pre><br>输出结果如下图所示，采用空格连接的分词结果。</p>
+<p><img src="https://gitee.com/bai_xiao_fei/picture/raw/master/PicGo/QQ%E6%88%AA%E5%9B%BE20201229214051.png" srcset="/img/loading.gif" alt=""></p>
+<p>同时生成高频特征词，并保存至CSV文件中。</p>
+<p><img src="https://gitee.com/bai_xiao_fei/picture/raw/master/PicGo/QQ%E6%88%AA%E5%9B%BE20201229214255.png" srcset="/img/loading.gif" alt=""></p>
+<p>对应的特征词及词频排序如表“2020-12-29-fc.csv”所示，如果我们撰写图情论文，可以尝试建立Top50的特征词表。</p>
+<p><img src="https://gitee.com/bai_xiao_fei/picture/raw/master/PicGo/QQ%E6%88%AA%E5%9B%BE20201229214815.png" srcset="/img/loading.gif" alt=""></p>
+<h1 id="四-WordCloud可视化分析"><a href="#四-WordCloud可视化分析" class="headerlink" title="四.WordCloud可视化分析"></a>四.WordCloud可视化分析</h1><h2 id="1-基本用法"><a href="#1-基本用法" class="headerlink" title="1.基本用法"></a>1.基本用法</h2><p>词云分析主要包括两种方法：</p>
+<ul>
+<li>调用WordCloud扩展包画图（兼容性极强，之前介绍过）</li>
+<li>调用PyEcharts中的WordCloud子包画图（本文推荐新方法）</li>
+</ul>
+<p>这里使用PyEcharts可视化，需要通过它来绘制词云，基础代码如下：<br><pre><code class="hljs python"><span class="hljs-comment"># coding=utf-8</span>
+<span class="hljs-keyword">from</span> pyecharts <span class="hljs-keyword">import</span> options <span class="hljs-keyword">as</span> opts
+<span class="hljs-keyword">from</span> pyecharts.charts <span class="hljs-keyword">import</span> WordCloud
+<span class="hljs-keyword">from</span> pyecharts.<span class="hljs-built_in">globals</span> <span class="hljs-keyword">import</span> SymbolType
+
+<span class="hljs-comment"># 数据</span>
+words = [
+    (<span class="hljs-string">&#x27;背包问题&#x27;</span>, <span class="hljs-number">10000</span>),
+    (<span class="hljs-string">&#x27;大整数&#x27;</span>, <span class="hljs-number">6181</span>),
+    (<span class="hljs-string">&#x27;Karatsuba乘法算法&#x27;</span>, <span class="hljs-number">4386</span>),
+    (<span class="hljs-string">&#x27;穷举搜索&#x27;</span>, <span class="hljs-number">4055</span>),
+    (<span class="hljs-string">&#x27;傅里叶变换&#x27;</span>, <span class="hljs-number">2467</span>),
+    (<span class="hljs-string">&#x27;状态树遍历&#x27;</span>, <span class="hljs-number">2244</span>),
+    (<span class="hljs-string">&#x27;剪枝&#x27;</span>, <span class="hljs-number">1868</span>),
+    (<span class="hljs-string">&#x27;Gale-shapley&#x27;</span>, <span class="hljs-number">1484</span>),
+    (<span class="hljs-string">&#x27;最大匹配与匈牙利算法&#x27;</span>, <span class="hljs-number">1112</span>),
+    (<span class="hljs-string">&#x27;线索模型&#x27;</span>, <span class="hljs-number">865</span>),
+    (<span class="hljs-string">&#x27;关键路径算法&#x27;</span>, <span class="hljs-number">847</span>),
+    (<span class="hljs-string">&#x27;最小二乘法曲线拟合&#x27;</span>, <span class="hljs-number">582</span>),
+    (<span class="hljs-string">&#x27;二分逼近法&#x27;</span>, <span class="hljs-number">555</span>),
+    (<span class="hljs-string">&#x27;牛顿迭代法&#x27;</span>, <span class="hljs-number">550</span>),
+    (<span class="hljs-string">&#x27;Bresenham算法&#x27;</span>, <span class="hljs-number">462</span>),
+    (<span class="hljs-string">&#x27;粒子群优化&#x27;</span>, <span class="hljs-number">366</span>),
+    (<span class="hljs-string">&#x27;Dijkstra&#x27;</span>, <span class="hljs-number">360</span>),
+    (<span class="hljs-string">&#x27;A*算法&#x27;</span>, <span class="hljs-number">282</span>),
+    (<span class="hljs-string">&#x27;负极大极搜索算法&#x27;</span>, <span class="hljs-number">273</span>),
+    (<span class="hljs-string">&#x27;估值函数&#x27;</span>, <span class="hljs-number">265</span>)
+]
+
+<span class="hljs-comment"># 渲染图</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">wordcloud_base</span>() -&gt; WordCloud:</span>
+    c = (
+        WordCloud()
+        .add(<span class="hljs-string">&quot;&quot;</span>, words, word_size_range=[<span class="hljs-number">20</span>, <span class="hljs-number">100</span>], shape=<span class="hljs-string">&#x27;diamond&#x27;</span>)  <span class="hljs-comment"># SymbolType.ROUND_RECT</span>
+        .set_global_opts(title_opts=opts.TitleOpts(title=<span class="hljs-string">&#x27;WordCloud词云&#x27;</span>))
+    )
+    <span class="hljs-keyword">return</span> c
+
+<span class="hljs-comment"># 生成图</span>
+wordcloud_base().render(<span class="hljs-string">&#x27;词云图.html&#x27;</span>)</code></pre><br>输出结果如下图所示，出现词频越高显示越大。</p>
+<p><img src="https://gitee.com/bai_xiao_fei/picture/raw/master/2020-12-29/1609247309429-image.png" srcset="/img/loading.gif" alt=""></p>
+<p>核心代码为：</p>
+<p><strong>add(name, attr, value, shape=“circle”, word_gap=20, word_size_range=None, rotate_step=45)</strong></p>
+<ul>
+<li>name -&gt; str: 图例名称</li>
+<li>attr -&gt; list: 属性名称</li>
+<li>value -&gt; list: 属性所对应的值</li>
+<li>shape -&gt; list: 词云图轮廓，有’circle’, ‘cardioid’, ‘diamond’, ‘triangleforward’, ‘triangle’, ‘pentagon’, ‘star’可选</li>
+<li>word_gap -&gt; int: 单词间隔,默认为20</li>
+<li>word_size_range -&gt; list: 单词字体大小范围,默认为[12,60]</li>
+<li>rotate_step -&gt; int: 旋转单词角度,默认为45</li>
+</ul>
+<h2 id="2-疫情词云"><a href="#2-疫情词云" class="headerlink" title="2.疫情词云"></a>2.疫情词云</h2><p>接着我们显示经过中文分词的疫情新闻文本信息，前1000个高频词的词云绘制代码如下：<br><pre><code class="hljs python"><span class="hljs-comment"># coding=utf-8</span>
+<span class="hljs-comment"># coding=utf-8</span>
+<span class="hljs-keyword">import</span> jieba
+<span class="hljs-keyword">import</span> re
+<span class="hljs-keyword">import</span> time
+<span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> Counter
+
+<span class="hljs-comment">#------------------------------------中文分词------------------------------------</span>
+cut_words = <span class="hljs-string">&quot;&quot;</span>
+all_words = <span class="hljs-string">&quot;&quot;</span>
+f = <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;C-class-fenci.txt&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span> , encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>)
+<span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;C-class.txt&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>):
+    line.strip(<span class="hljs-string">&#x27;\n&#x27;</span>)
+    seg_list = jieba.cut(line,cut_all=<span class="hljs-literal">False</span>)
+    <span class="hljs-comment"># print(&quot; &quot;.join(seg_list))</span>
+    cut_words = (<span class="hljs-string">&quot; &quot;</span>.join(seg_list))
+    f.write(cut_words)
+    all_words += cut_words
+<span class="hljs-keyword">else</span>:
+    f.close()
+
+<span class="hljs-comment"># 输出结果</span>
+all_words = all_words.split()
+print(all_words)
+
+<span class="hljs-comment"># 词频统计</span>
+c = Counter()
+<span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> all_words:
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(x)&gt;<span class="hljs-number">1</span> <span class="hljs-keyword">and</span> x != <span class="hljs-string">&#x27;\r\n&#x27;</span>:
+        c[x] += <span class="hljs-number">1</span>
+
+<span class="hljs-comment"># 输出词频最高的前10个词</span>
+print(<span class="hljs-string">&#x27;\n词频统计结果：&#x27;</span>)
+<span class="hljs-keyword">for</span> (k,v) <span class="hljs-keyword">in</span> c.most_common(<span class="hljs-number">10</span>):
+    print(<span class="hljs-string">&quot;%s:%d&quot;</span>%(k,v))
+
+<span class="hljs-comment"># 存储数据</span>
+name = time.strftime(<span class="hljs-string">&quot;%Y-%m-%d&quot;</span>) + <span class="hljs-string">&quot;-fc.csv&quot;</span>
+fw = <span class="hljs-built_in">open</span>(name, <span class="hljs-string">&#x27;w&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>)
+i = <span class="hljs-number">1</span>
+<span class="hljs-keyword">for</span> (k,v) <span class="hljs-keyword">in</span> c.most_common(<span class="hljs-built_in">len</span>(c)):
+    fw.write(<span class="hljs-built_in">str</span>(i)+<span class="hljs-string">&#x27;,&#x27;</span>+<span class="hljs-built_in">str</span>(k)+<span class="hljs-string">&#x27;,&#x27;</span>+<span class="hljs-built_in">str</span>(v)+<span class="hljs-string">&#x27;\n&#x27;</span>)
+    i = i + <span class="hljs-number">1</span>
+<span class="hljs-keyword">else</span>:
+    print(<span class="hljs-string">&quot;Over write file!&quot;</span>)
+    fw.close()
+
+
+<span class="hljs-comment">#------------------------------------词云分析------------------------------------</span>
+<span class="hljs-keyword">from</span> pyecharts <span class="hljs-keyword">import</span> options <span class="hljs-keyword">as</span> opts
+<span class="hljs-keyword">from</span> pyecharts.charts <span class="hljs-keyword">import</span> WordCloud
+<span class="hljs-keyword">from</span> pyecharts.<span class="hljs-built_in">globals</span> <span class="hljs-keyword">import</span> SymbolType
+
+<span class="hljs-comment"># 生成数据 word = [(&#x27;A&#x27;,10), (&#x27;B&#x27;,9), (&#x27;C&#x27;,8)] 列表+Tuple</span>
+words = []
+<span class="hljs-keyword">for</span> (k,v) <span class="hljs-keyword">in</span> c.most_common(<span class="hljs-number">1000</span>):
+    <span class="hljs-comment"># print(k, v)</span>
+    words.append((k,v))
+
+<span class="hljs-comment"># 渲染图</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">wordcloud_base</span>() -&gt; WordCloud:</span>
+    c = (
+        WordCloud()
+        .add(<span class="hljs-string">&quot;&quot;</span>, words, word_size_range=[<span class="hljs-number">20</span>, <span class="hljs-number">100</span>], shape=SymbolType.ROUND_RECT)
+        .set_global_opts(title_opts=opts.TitleOpts(title=<span class="hljs-string">&#x27;全国新型冠状病毒疫情词云图&#x27;</span>))
+    )
+    <span class="hljs-keyword">return</span> c
+
+<span class="hljs-comment"># 生成图</span>
+wordcloud_base().render(<span class="hljs-string">&#x27;疫情词云图.html&#x27;</span>)</code></pre><br>运行结果如下图所示：</p>
+<p><img src="https://gitee.com/bai_xiao_fei/picture/raw/master/PicGo/QQ%E6%88%AA%E5%9B%BE20201229220342.png" srcset="/img/loading.gif" alt=""></p>
+<p>输出结果如下图所示：</p>
+<p><img src="https://gitee.com/bai_xiao_fei/picture/raw/master/2020-12-29/1609250448650-QQ截图20201229215841.png" srcset="/img/loading.gif" alt=""></p>
+<h1 id="五-TF-IDF计算及KMeans文本聚类"><a href="#五-TF-IDF计算及KMeans文本聚类" class="headerlink" title="五.TF-IDF计算及KMeans文本聚类"></a>五.TF-IDF计算及KMeans文本聚类</h1><h2 id="1-TF-IDF计算"><a href="#1-TF-IDF计算" class="headerlink" title="1.TF-IDF计算"></a>1.TF-IDF计算</h2><p>TF-IDF（Term Frequency-InversDocument Frequency）是一种常用于信息处理和数据挖掘的加权技术。该技术采用一种统计方法，根据字词的在文本中出现的次数和在整个语料中出现的文档频率来计算一个字词在整个语料中的重要程度。它的优点是能过滤掉一些常见的却无关紧要本的词语，同时保留影响整个文本的重要字词。计算方法如下面公式所示：</p>
+<script type="math/tex; mode=display">
+T F − I D F = T F ∗ I D F TF-IDF = TF* IDF
+TF−IDF=TF∗IDF</script><p>TF（Term Frequency）表示某个关键词在整篇文章中出现的频率。IDF（InversDocument Frequency）表示计算倒文本频率。文本频率是指某个关键词在整个语料所有文章中出现的次数。倒文档频率又称为逆文档频率，它是文档频率的倒数，主要用于降低所有文档中一些常见却对文档影响不大的词语的作用。</p>
+<p>TF-IDF统计可视化完整代码如下：<br><pre><code class="hljs python"><span class="hljs-comment"># coding=utf-8 </span>
+<span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> time
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> jieba
+<span class="hljs-keyword">import</span> jieba.analyse
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image
+<span class="hljs-keyword">from</span> datetime <span class="hljs-keyword">import</span> datetime
+<span class="hljs-keyword">from</span> matplotlib.font_manager <span class="hljs-keyword">import</span> FontProperties
+
+<span class="hljs-comment">#------------------------------------中文分词------------------------------------</span>
+cut_words = <span class="hljs-string">&quot;&quot;</span>
+<span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;C-class.txt&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>):
+    line.strip(<span class="hljs-string">&#x27;\n&#x27;</span>)
+    seg_list = jieba.cut(line,cut_all=<span class="hljs-literal">False</span>)
+    <span class="hljs-comment"># print(&quot; &quot;.join(seg_list))</span>
+    cut_words += (<span class="hljs-string">&quot; &quot;</span>.join(seg_list))
+
+<span class="hljs-comment"># jieba.load_userdict(&quot;userdict.txt&quot;)              # 自定义词典</span>
+<span class="hljs-comment"># jieba.analyse.set_stop_words(&#x27;stop_words.txt&#x27;)   # 停用词词典</span>
+
+<span class="hljs-comment"># 提取主题词 返回的词频其实就是TF-IDF</span>
+keywords = jieba.analyse.extract_tags(cut_words,
+                                      topK=<span class="hljs-number">50</span>,
+                                      withWeight=<span class="hljs-literal">True</span>,
+                                      allowPOS=(<span class="hljs-string">&#x27;a&#x27;</span>,<span class="hljs-string">&#x27;e&#x27;</span>,<span class="hljs-string">&#x27;n&#x27;</span>,<span class="hljs-string">&#x27;nr&#x27;</span>,<span class="hljs-string">&#x27;ns&#x27;</span>, <span class="hljs-string">&#x27;v&#x27;</span>)) <span class="hljs-comment">#词性 形容词 叹词 名词 动词</span>
+
+<span class="hljs-comment"># 以列表形式返回</span>
+print(keywords)
+
+<span class="hljs-comment"># 数据存储</span>
+pd.DataFrame(keywords, columns=[<span class="hljs-string">&#x27;词语&#x27;</span>,<span class="hljs-string">&#x27;重要性&#x27;</span>]).to_excel(<span class="hljs-string">&#x27;TF_IDF关键词前50.xlsx&#x27;</span>)
+
+<span class="hljs-comment"># keyword本身包含两列数据</span>
+ss = pd.DataFrame(keywords,columns = [<span class="hljs-string">&#x27;词语&#x27;</span>,<span class="hljs-string">&#x27;重要性&#x27;</span>])     
+<span class="hljs-comment"># print(ss)</span>
+
+<span class="hljs-comment">#------------------------------------数据可视化------------------------------------</span>
+plt.figure(figsize=(<span class="hljs-number">10</span>,<span class="hljs-number">6</span>))
+plt.title(<span class="hljs-string">&#x27;TF-IDF Ranking&#x27;</span>)
+fig = plt.axes()
+plt.barh(<span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(ss.重要性[:<span class="hljs-number">25</span>][::<span class="hljs-number">-1</span>])),ss.重要性[:<span class="hljs-number">25</span>][::<span class="hljs-number">-1</span>])
+fig.set_yticks(np.arange(<span class="hljs-built_in">len</span>(ss.重要性[:<span class="hljs-number">25</span>][::<span class="hljs-number">-1</span>])))
+font = FontProperties(fname=<span class="hljs-string">r&#x27;c:\windows\fonts\simsun.ttc&#x27;</span>)
+fig.set_yticklabels(ss.词语[:<span class="hljs-number">25</span>][::<span class="hljs-number">-1</span>],fontproperties=font)
+fig.set_xlabel(<span class="hljs-string">&#x27;Importance&#x27;</span>)
+plt.show()</code></pre><br>输出结果如下图所示，可以看到“疫情”、“组织”、“企业”、“复工”、“社会”、“新冠”、“慈善”等都是高频词，也是大众普遍关心的主题。</p>
+<p><img src="https://gitee.com/bai_xiao_fei/picture/raw/master/PicGo/TF_IDF%20Ranking.png" srcset="/img/loading.gif" alt=""></p>
+<p>注意：可能需要安装openpyxl扩展包，to_excel()函数要用到。</p>
+<p><img src="https://gitee.com/bai_xiao_fei/picture/raw/master/2020-12-29/1609247490320-20200306204609322.png" srcset="/img/loading.gif" alt=""></p>
+<h2 id="2-文本聚类"><a href="#2-文本聚类" class="headerlink" title="2.文本聚类"></a>2.文本聚类</h2><p>同样，在Scikit-Learn包中也能计算TF-IDF权重值，此时需要用到两个类：CountVectorizer和TfidfTransformer。</p>
+<p><strong>(1) CountVectorizer</strong></p>
+<p>CountVectorizer类会将文本中的词语转换为词频矩阵，例如矩阵中包含一个元素<code>a[i][j]</code>，它表示j词在i类文本下的词频。它通过fit_transform函数计算各个词语出现的次数，通过get_feature_names()可获取词袋中所有文本的关键字，通过toarray()可看到词频矩阵的结果。</p>
+<p><strong>(2) TfidfTransformer</strong></p>
+<p>TfidfTransformer用于统计vectorizer中每个词语的TF-IDF值。具体用法如下：</p>
+<pre><code class="hljs python"><span class="hljs-comment"># coding:utf-8</span>
+<span class="hljs-keyword">from</span> sklearn.feature_extraction.text <span class="hljs-keyword">import</span> CountVectorizer
+ 
+<span class="hljs-comment">#语料</span>
+corpus = [
+    <span class="hljs-string">&#x27;This is the first document.&#x27;</span>,
+    <span class="hljs-string">&#x27;This is the second second document.&#x27;</span>,
+    <span class="hljs-string">&#x27;And the third one.&#x27;</span>,
+    <span class="hljs-string">&#x27;Is this the first document?&#x27;</span>,
+]
+<span class="hljs-comment">#将文本中的词语转换为词频矩阵</span>
+vectorizer = CountVectorizer()
+<span class="hljs-comment">#计算个词语出现的次数</span>
+X = vectorizer.fit_transform(corpus)
+<span class="hljs-comment">#获取词袋中所有文本关键词</span>
+word = vectorizer.get_feature_names()
+<span class="hljs-built_in">print</span> word
+<span class="hljs-comment">#查看词频结果</span>
+<span class="hljs-built_in">print</span> X.toarray()
+ 
+<span class="hljs-keyword">from</span> sklearn.feature_extraction.text <span class="hljs-keyword">import</span> TfidfTransformer
+ 
+<span class="hljs-comment">#类调用</span>
+transformer = TfidfTransformer()
+<span class="hljs-built_in">print</span> transformer
+<span class="hljs-comment">#将词频矩阵X统计成TF-IDF值</span>
+tfidf = transformer.fit_transform(X)
+<span class="hljs-comment">#查看数据结构 tfidf[i][j]表示i类文本中的tf-idf权重</span>
+<span class="hljs-built_in">print</span> tfidf.toarray()</code></pre>
+<p>输出结果入下所示，从结果中可以看到，总共包括9个特征词，即：<br>[u’and’, u’document’, u’first’, u’is’, u’one’, u’second’, u’the’, u’third’, u’this’]</p>
+<p>同时在输出每个句子中包含特征词的个数。例如，第一句“This is the first document.”，它对应的词频为[0, 1, 1, 1, 0, 0, 1, 0, 1]，假设初始序号从1开始计数，则该词频表示存在第2个位置的单词“document”共1次、第3个位置的单词“first”共1次、第4个位置的单词“is”共1次、第9个位置的单词“this”共1词。所以，每个句子都会得到一个词频向量，TF-IDF对应向量类似。</p>
+<p><img src="https://gitee.com/bai_xiao_fei/picture/raw/master/2020-12-29/1609247570945-image.png" srcset="/img/loading.gif" alt=""></p>
+<p><strong>(3) 文本聚类</strong><br><pre><code class="hljs python"><span class="hljs-comment"># coding=utf-8  </span>
+<span class="hljs-keyword">import</span> time          
+<span class="hljs-keyword">import</span> re          
+<span class="hljs-keyword">import</span> os  
+<span class="hljs-keyword">import</span> sys
+<span class="hljs-keyword">import</span> codecs
+<span class="hljs-keyword">import</span> shutil
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> matplotlib
+<span class="hljs-keyword">import</span> scipy
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> feature_extraction  
+<span class="hljs-keyword">from</span> sklearn.feature_extraction.text <span class="hljs-keyword">import</span> TfidfTransformer  
+<span class="hljs-keyword">from</span> sklearn.feature_extraction.text <span class="hljs-keyword">import</span> CountVectorizer
+<span class="hljs-keyword">from</span> sklearn.feature_extraction.text <span class="hljs-keyword">import</span> HashingVectorizer 
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:
+
+    <span class="hljs-comment">#########################################################################</span>
+    <span class="hljs-comment">#                           第一步 计算TFIDF</span>
+    
+    <span class="hljs-comment"># 文档预料 空格连接</span>
+    corpus = []
+    
+    <span class="hljs-comment"># 读取预料 一行预料为一个文档</span>
+    <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;C-class-fenci.txt&#x27;</span>, <span class="hljs-string">&#x27;r&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>).readlines():
+        corpus.append(line.strip())
+    
+    <span class="hljs-comment"># 将文本中的词语转换为词频矩阵 矩阵元素a[i][j] 表示j词在i类文本下的词频</span>
+    vectorizer = CountVectorizer()
+ 
+    <span class="hljs-comment"># 该类会统计每个词语的tf-idf权值</span>
+    transformer = TfidfTransformer()
+ 
+    <span class="hljs-comment"># 第一个fit_transform是计算tf-idf 第二个fit_transform是将文本转为词频矩阵</span>
+    tfidf = transformer.fit_transform(vectorizer.fit_transform(corpus))
+ 
+    <span class="hljs-comment"># 获取词袋模型中的所有词语  </span>
+    word = vectorizer.get_feature_names()
+    
+    <span class="hljs-comment"># 将tf-idf矩阵抽取出来 元素w[i][j]表示j词在i类文本中的tf-idf权重</span>
+    weight = tfidf.toarray()
+ 
+    <span class="hljs-comment"># 打印特征向量文本内容</span>
+    print(<span class="hljs-string">&#x27;Features length: &#x27;</span> + <span class="hljs-built_in">str</span>(<span class="hljs-built_in">len</span>(word)))
+    
+    <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">    # 输出单词</span>
+<span class="hljs-string">    for j in range(len(word)):</span>
+<span class="hljs-string">        print(word[j] + &#x27; &#x27;)</span>
+<span class="hljs-string">        </span>
+<span class="hljs-string">    # 打印每类文本的tf-idf词语权重 第一个for遍历所有文本 第二个for便利某一类文本下的词语权重  </span>
+<span class="hljs-string">    for i in range(len(weight)):</span>
+<span class="hljs-string">        print u&quot;-------这里输出第&quot;, i, u&quot;类文本的词语tf-idf权重------&quot;  </span>
+<span class="hljs-string">        for j in range(len(word)):</span>
+<span class="hljs-string">            print weight[i][j],</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+
+    <span class="hljs-comment">########################################################################</span>
+    <span class="hljs-comment">#                               第二步 聚类Kmeans</span>
+ 
+    print(<span class="hljs-string">&#x27;Start Kmeans:&#x27;</span>)
+    <span class="hljs-keyword">from</span> sklearn.cluster <span class="hljs-keyword">import</span> KMeans
+    clf = KMeans(n_clusters=<span class="hljs-number">2</span>)
+    print(clf)
+    pre = clf.fit_predict(weight)
+    print(pre)
+
+    <span class="hljs-comment">#中心点</span>
+    print(clf.cluster_centers_)
+    print(clf.inertia_)
+    
+    <span class="hljs-comment">########################################################################</span>
+    <span class="hljs-comment">#                               第三步 图形输出 降维</span>
+ 
+    <span class="hljs-keyword">from</span> sklearn.decomposition <span class="hljs-keyword">import</span> PCA
+    pca = PCA(n_components=<span class="hljs-number">2</span>)             <span class="hljs-comment">#输出两维</span>
+    newData = pca.fit_transform(weight)   <span class="hljs-comment">#载入N维</span>
+    print(newData)
+    
+    x = [n[<span class="hljs-number">0</span>] <span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> newData]
+    y = [n[<span class="hljs-number">1</span>] <span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> newData]
+    
+    plt.scatter(x, y, c=pre, s=<span class="hljs-number">100</span>)
+    plt.legend()
+    plt.title(<span class="hljs-string">&quot;Cluster with Text Mining&quot;</span>)
+    plt.show()</code></pre><br>输出结果如下图所示。需要注意，简单的聚类我们无法进行深入的分析，你可以理解为积极主题的一类（黄色）、消极主题的一类（黑色），也可以有其他理解，需要结合具体数据集进行分析，但其解释性始终不是很好。而真实的数据分析中会引入类标或标注，所以接着我们引入主题关键词聚类和LDA主题模型的分析，更能帮助大家理解文本挖掘和主题分析。</p>
+<p><img src="https://gitee.com/bai_xiao_fei/picture/raw/master/PicGo/cluster%20with%20text%20mining.png" srcset="/img/loading.gif" alt=""></p>
+<h1 id="六-主题词层次聚类分析"><a href="#六-主题词层次聚类分析" class="headerlink" title="六.主题词层次聚类分析"></a>六.主题词层次聚类分析</h1><h2 id="1-层次聚类"><a href="#1-层次聚类" class="headerlink" title="1.层次聚类"></a>1.层次聚类</h2><p>层次聚类算法又称为树聚类算法，它根据数据之间的距离，透过一种层次架构方式，反复将数据进行聚合，创建一个层次以分解给定的数据集。主题词层次聚类主要调用scipy.cluster.hierarchy实现，推荐文章：层次聚类。</p>
+<ul>
+<li>scipy.cluster.hierarchy.linkage(y, method=‘single’, metric=‘euclidean’, optimal_ordering=False)</li>
+</ul>
+<p>层次聚类编码为一个linkage矩阵。假设代码如下，Z共有四列组成，第一字段与第二字段分别为聚类簇的编号，在初始距离前每个初始值被从0~n-1进行标识，每生成一个新的聚类簇就在此基础上增加一对新的聚类簇进行标识，第三个字段表示前两个聚类簇之间的距离，第四个字段表示新生成聚类簇所包含的元素的个数。<br><pre><code class="hljs python"><span class="hljs-keyword">from</span> scipy.cluster.hierarchy <span class="hljs-keyword">import</span> dendrogram, linkage,fcluster
+<span class="hljs-keyword">from</span> matplotlib <span class="hljs-keyword">import</span> pyplot <span class="hljs-keyword">as</span> plt
+X = [[i] <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [<span class="hljs-number">2</span>, <span class="hljs-number">8</span>, <span class="hljs-number">0</span>, <span class="hljs-number">4</span>, <span class="hljs-number">1</span>, <span class="hljs-number">9</span>, <span class="hljs-number">9</span>, <span class="hljs-number">0</span>]]
+print(X)
+Z = linkage(X, <span class="hljs-string">&#x27;ward&#x27;</span>)
+f = fcluster(Z, <span class="hljs-number">4</span>, <span class="hljs-string">&#x27;distance&#x27;</span>)
+fig = plt.figure(figsize=(<span class="hljs-number">5</span>, <span class="hljs-number">3</span>))
+dn = dendrogram(Z)
+plt.show()</code></pre><br>下面是聚类结果的可视化聚类树：</p>
+<p><img src="https://gitee.com/bai_xiao_fei/picture/raw/master/2020-12-29/1609247655632-image.png" srcset="/img/loading.gif" alt=""></p>
+<p>下面是返回值的解析：</p>
+<p><img src="https://gitee.com/bai_xiao_fei/picture/raw/master/2020-12-29/1609247662789-image.png" srcset="/img/loading.gif" alt=""></p>
+<h2 id="2-疫情分析"><a href="#2-疫情分析" class="headerlink" title="2.疫情分析"></a>2.疫情分析</h2><p>由于层次聚类绘制的树状图主题词太多，所以这里采用中文分词提取每条新闻（对应一行数据）的Top100特征词，再存储至TXT中进行层次聚类分析。完整代码如下：<br><pre><code class="hljs python"><span class="hljs-comment"># -*- coding: utf-8 -*-</span>
+<span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> jieba
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">from</span> pylab <span class="hljs-keyword">import</span> mpl
+<span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> Counter
+<span class="hljs-keyword">from</span> sklearn.metrics.pairwise <span class="hljs-keyword">import</span> cosine_similarity
+<span class="hljs-keyword">from</span> scipy.cluster.hierarchy <span class="hljs-keyword">import</span> ward, dendrogram
+<span class="hljs-keyword">from</span> sklearn.feature_extraction.text <span class="hljs-keyword">import</span> CountVectorizer, TfidfTransformer
+
+mpl.rcParams[<span class="hljs-string">&#x27;font.sans-serif&#x27;</span>] = [<span class="hljs-string">&#x27;SimHei&#x27;</span>]
+
+<span class="hljs-comment">#------------------------------ 第一步 计算TOP100 ------------------------------</span>
+<span class="hljs-comment"># 计算中文分词词频TOP100</span>
+cut_words = <span class="hljs-string">&quot;&quot;</span>
+all_words = <span class="hljs-string">&quot;&quot;</span>
+<span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;C-class.txt&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>):
+    line.strip(<span class="hljs-string">&#x27;\n&#x27;</span>)
+    seg_list = jieba.cut(line,cut_all=<span class="hljs-literal">False</span>)
+    <span class="hljs-comment"># print(&quot; &quot;.join(seg_list))</span>
+    cut_words = (<span class="hljs-string">&quot; &quot;</span>.join(seg_list))
+    all_words += cut_words
+    
+<span class="hljs-comment"># 输出结果</span>
+all_words = all_words.split()
+print(all_words)
+
+<span class="hljs-comment"># 词频统计</span>
+c = Counter()
+<span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> all_words:
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(x)&gt;<span class="hljs-number">1</span> <span class="hljs-keyword">and</span> x != <span class="hljs-string">&#x27;\r\n&#x27;</span>:
+        c[x] += <span class="hljs-number">1</span>
+
+<span class="hljs-comment"># 输出词频最高的前10个词</span>
+top_word = []
+print(<span class="hljs-string">&#x27;\n词频统计结果：&#x27;</span>)
+<span class="hljs-keyword">for</span> (k,v) <span class="hljs-keyword">in</span> c.most_common(<span class="hljs-number">100</span>):
+    print(<span class="hljs-string">&quot;%s:%d&quot;</span>%(k,v))
+    top_word.append(k)
+print(top_word)
+<span class="hljs-comment"># [&#x27;疫情&#x27;, &#x27;防控&#x27;, &#x27;组织&#x27;, &#x27;工作&#x27;...]</span>
+
+<span class="hljs-comment">#------------------------------ 第二步 中文分词过滤 ------------------------------</span>
+<span class="hljs-comment"># 过滤</span>
+cut_words = <span class="hljs-string">&quot;&quot;</span>
+f = <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;C-key.txt&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>)
+<span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;C-class.txt&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>):
+    line.strip(<span class="hljs-string">&#x27;\n&#x27;</span>)
+    seg_list = jieba.cut(line,cut_all=<span class="hljs-literal">False</span>)
+    final = <span class="hljs-string">&quot;&quot;</span>
+    <span class="hljs-keyword">for</span> seg <span class="hljs-keyword">in</span> seg_list:
+        <span class="hljs-keyword">if</span> seg <span class="hljs-keyword">in</span> top_word:
+            final += seg + <span class="hljs-string">&quot;|&quot;</span>
+    cut_words += final
+    f.write(final+<span class="hljs-string">&quot;\n&quot;</span>)
+print(cut_words)
+f.close
+
+<span class="hljs-comment">#------------------------------ 第三步 相相关计算 ------------------------------ </span>
+text = <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;C-key.txt&#x27;</span>).read()
+list1 = text.split(<span class="hljs-string">&quot;\n&quot;</span>)
+print(list1)
+
+<span class="hljs-comment"># 数据第一行、第二行数据</span>
+<span class="hljs-comment"># print(list1[0])</span>
+<span class="hljs-comment"># print(list1[1])</span>
+mytext_list = list1
+
+<span class="hljs-comment"># min_df用于删除不经常出现的术语</span>
+<span class="hljs-comment"># max_df用于删除过于频繁出现的术语,也称为语料库特定的停用词</span>
+<span class="hljs-comment"># count_vec = CountVectorizer(min_df=3, max_df=3)</span>
+count_vec = CountVectorizer(min_df=<span class="hljs-number">3</span>)
+xx1 = count_vec.fit_transform(list1).toarray()
+word = count_vec.get_feature_names() 
+print(<span class="hljs-string">&quot;word feature length: &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">len</span>(word)))
+print(word)
+print(xx1.shape)
+print(xx1[<span class="hljs-number">0</span>])
+titles = word
+
+<span class="hljs-comment">#------------------------------ 第四步 相似度计算 ------------------------------ </span>
+df = pd.DataFrame(xx1)
+print(df.corr())
+print(df.corr(<span class="hljs-string">&#x27;spearman&#x27;</span>))
+print(df.corr(<span class="hljs-string">&#x27;kendall&#x27;</span>))
+
+dist = df.corr()
+print(dist)
+print(<span class="hljs-built_in">type</span>(dist))
+print(dist.shape)
+
+<span class="hljs-comment">#------------------------------ 第五步 可视化分析 ------------------------------ </span>
+<span class="hljs-comment"># define the linkage_matrix using ward clustering pre-computed distances</span>
+linkage_matrix = ward(dist)
+fig, ax = plt.subplots(figsize=(<span class="hljs-number">15</span>, <span class="hljs-number">20</span>)) <span class="hljs-comment"># set size</span>
+ax = dendrogram(linkage_matrix, orientation=<span class="hljs-string">&quot;right&quot;</span>, labels=titles);
+
+<span class="hljs-comment"># how plot with tight layout</span>
+plt.tight_layout() 
+
+<span class="hljs-comment"># save figure as ward_clusters</span>
+plt.savefig(<span class="hljs-string">&#x27;Tree_word.png&#x27;</span>, dpi=<span class="hljs-number">200</span>)</code></pre><br>最终生成图像如下所示：</p>
+<p><img src="https://gitee.com/bai_xiao_fei/picture/raw/master/PicGo/Tree_word.png" srcset="/img/loading.gif" alt=""></p>
+<p>运行结果如下图所示：</p>
+<p><img src="https://gitee.com/bai_xiao_fei/picture/raw/master/PicGo/QQ%E6%88%AA%E5%9B%BE20201229221902.png" srcset="/img/loading.gif" alt=""></p>
+<p>注意：该方法更推荐大家在进行论文关键词共现分析、主题词聚类分析等领域。</p>
+<h1 id="七-LDA主题分布分析"><a href="#七-LDA主题分布分析" class="headerlink" title="七.LDA主题分布分析"></a>七.LDA主题分布分析</h1><h2 id="1-LDA主题模型"><a href="#1-LDA主题模型" class="headerlink" title="1.LDA主题模型"></a>1.LDA主题模型</h2><p>文档主题生成模型（Latent Dirichlet Allocation，简称LDA）通常由包含词、主题和文档三层结构组成。LDA模型属于无监督学习技术，它是将一篇文档的每个词都以一定概率分布在某个主题上，并从这个主题中选择某个词语。文档到主题的过程是服从多项分布的，主题到词的过程也是服从多项分布的。</p>
+<p>文档主题生成模型（Latent Dirichlet Allocation，简称LDA）又称为盘子表示法（Plate Notation），下图是模型的标示图，其中双圆圈表示可测变量，单圆圈表示潜在变量，箭头表示两个变量之间的依赖关系，矩形框表示重复抽样，对应的重复次数在矩形框的右下角显示。LDA模型的具体实现步骤如下：</p>
+<ul>
+<li>从每篇网页D对应的多项分布θ中抽取每个单词对应的一个主题z。</li>
+<li>从主题z对应的多项分布φ中抽取一个单词w。</li>
+<li>重复步骤1和2，共计Nd次，直至遍历网页中每一个单词。</li>
+</ul>
+<p><img src="https://gitee.com/bai_xiao_fei/picture/raw/master/2020-12-29/1609247835654-image.png" srcset="/img/loading.gif" alt=""></p>
+<p>可以从gensim中下载ldamodel扩展包安装，也可以使用Sklearn机器学习包的LDA子扩展包，亦可从github中下载开源的LDA工具。下载地址详见列表所示。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>来源</th>
+<th>下载地址</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gensim</td>
+<td><a target="_blank" rel="noopener" href="https://radimrehurek.com/gensim/models/ldamodel.html">https://radimrehurek.com/gensim/models/ldamodel.html</a></td>
+</tr>
+<tr>
+<td>scikit-learn</td>
+<td>利用pip install sklearn命令安装扩展包，LatentDirichletAllocation函数即LDA原型</td>
+</tr>
+<tr>
+<td>github</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/ariddell/lda">https://github.com/ariddell/lda</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>本文和之前介绍的LDA算法略有不同，它主要采用sklearn中的LatentDirichletAllocation包实现主题分布研究，并调用pyLDAvis绘制相关图形。安装过程如下所示：</p>
+<p><img src="https://gitee.com/bai_xiao_fei/picture/raw/master/2020-12-29/1609247970659-20200306204609322.png" srcset="/img/loading.gif" alt=""></p>
+<h2 id="2-完整代码"><a href="#2-完整代码" class="headerlink" title="2.完整代码"></a>2.完整代码</h2><pre><code class="hljs python"><span class="hljs-comment">#coding: utf-8</span>
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">from</span> sklearn.feature_extraction.text <span class="hljs-keyword">import</span> TfidfVectorizer, CountVectorizer
+
+<span class="hljs-comment">#---------------------  第一步 读取数据(已分词)  ----------------------</span>
+corpus = []
+
+<span class="hljs-comment"># 读取预料 一行预料为一个文档</span>
+<span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;C-class-fenci.txt&#x27;</span>, <span class="hljs-string">&#x27;r&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>).readlines():
+    corpus.append(line.strip())
+        
+<span class="hljs-comment">#-----------------------  第二步 计算TF-IDF值  ----------------------- </span>
+<span class="hljs-comment"># 设置特征数</span>
+n_features = <span class="hljs-number">2000</span>
+
+tf_vectorizer = TfidfVectorizer(strip_accents = <span class="hljs-string">&#x27;unicode&#x27;</span>,
+                                max_features=n_features,
+                                stop_words=[<span class="hljs-string">&#x27;的&#x27;</span>,<span class="hljs-string">&#x27;或&#x27;</span>,<span class="hljs-string">&#x27;等&#x27;</span>,<span class="hljs-string">&#x27;是&#x27;</span>,<span class="hljs-string">&#x27;有&#x27;</span>,<span class="hljs-string">&#x27;之&#x27;</span>,<span class="hljs-string">&#x27;与&#x27;</span>,<span class="hljs-string">&#x27;可以&#x27;</span>,<span class="hljs-string">&#x27;还是&#x27;</span>,<span class="hljs-string">&#x27;比较&#x27;</span>,<span class="hljs-string">&#x27;这里&#x27;</span>,
+                                            <span class="hljs-string">&#x27;一个&#x27;</span>,<span class="hljs-string">&#x27;和&#x27;</span>,<span class="hljs-string">&#x27;也&#x27;</span>,<span class="hljs-string">&#x27;被&#x27;</span>,<span class="hljs-string">&#x27;吗&#x27;</span>,<span class="hljs-string">&#x27;于&#x27;</span>,<span class="hljs-string">&#x27;中&#x27;</span>,<span class="hljs-string">&#x27;最&#x27;</span>,<span class="hljs-string">&#x27;但是&#x27;</span>,<span class="hljs-string">&#x27;图片&#x27;</span>,<span class="hljs-string">&#x27;大家&#x27;</span>,
+                                            <span class="hljs-string">&#x27;一下&#x27;</span>,<span class="hljs-string">&#x27;几天&#x27;</span>,<span class="hljs-string">&#x27;200&#x27;</span>,<span class="hljs-string">&#x27;还有&#x27;</span>,<span class="hljs-string">&#x27;一看&#x27;</span>,<span class="hljs-string">&#x27;300&#x27;</span>,<span class="hljs-string">&#x27;50&#x27;</span>,<span class="hljs-string">&#x27;哈哈哈哈&#x27;</span>,
+                                             <span class="hljs-string">&#x27;“&#x27;</span>,<span class="hljs-string">&#x27;”&#x27;</span>,<span class="hljs-string">&#x27;。&#x27;</span>,<span class="hljs-string">&#x27;，&#x27;</span>,<span class="hljs-string">&#x27;？&#x27;</span>,<span class="hljs-string">&#x27;、&#x27;</span>,<span class="hljs-string">&#x27;；&#x27;</span>,<span class="hljs-string">&#x27;怎么&#x27;</span>,<span class="hljs-string">&#x27;本来&#x27;</span>,<span class="hljs-string">&#x27;发现&#x27;</span>,
+                                             <span class="hljs-string">&#x27;and&#x27;</span>,<span class="hljs-string">&#x27;in&#x27;</span>,<span class="hljs-string">&#x27;of&#x27;</span>,<span class="hljs-string">&#x27;the&#x27;</span>,<span class="hljs-string">&#x27;我们&#x27;</span>,<span class="hljs-string">&#x27;一直&#x27;</span>,<span class="hljs-string">&#x27;真的&#x27;</span>,<span class="hljs-string">&#x27;18&#x27;</span>,<span class="hljs-string">&#x27;一次&#x27;</span>,
+                                           <span class="hljs-string">&#x27;了&#x27;</span>,<span class="hljs-string">&#x27;有些&#x27;</span>,<span class="hljs-string">&#x27;已经&#x27;</span>,<span class="hljs-string">&#x27;不是&#x27;</span>,<span class="hljs-string">&#x27;这么&#x27;</span>,<span class="hljs-string">&#x27;一一&#x27;</span>,<span class="hljs-string">&#x27;一天&#x27;</span>,<span class="hljs-string">&#x27;这个&#x27;</span>,<span class="hljs-string">&#x27;这种&#x27;</span>,
+                                           <span class="hljs-string">&#x27;一种&#x27;</span>,<span class="hljs-string">&#x27;位于&#x27;</span>,<span class="hljs-string">&#x27;之一&#x27;</span>,<span class="hljs-string">&#x27;天空&#x27;</span>,<span class="hljs-string">&#x27;没有&#x27;</span>,<span class="hljs-string">&#x27;很多&#x27;</span>,<span class="hljs-string">&#x27;有点&#x27;</span>,<span class="hljs-string">&#x27;什么&#x27;</span>,<span class="hljs-string">&#x27;五个&#x27;</span>,
+                                           <span class="hljs-string">&#x27;特别&#x27;</span>],
+                                max_df = <span class="hljs-number">0.99</span>,
+                                min_df = <span class="hljs-number">0.002</span>) <span class="hljs-comment">#去除文档内出现几率过大或过小的词汇</span>
+
+tf = tf_vectorizer.fit_transform(corpus)
+
+print(tf.shape)
+print(tf)
+
+<span class="hljs-comment">#-------------------------  第三步 LDA分析  ------------------------ </span>
+<span class="hljs-keyword">from</span> sklearn.decomposition <span class="hljs-keyword">import</span> LatentDirichletAllocation
+
+<span class="hljs-comment"># 设置主题数</span>
+n_topics = <span class="hljs-number">2</span>
+
+lda = LatentDirichletAllocation(n_components=n_topics,
+                                max_iter=<span class="hljs-number">100</span>,
+                                learning_method=<span class="hljs-string">&#x27;online&#x27;</span>,
+                                learning_offset=<span class="hljs-number">50</span>,
+                                random_state=<span class="hljs-number">0</span>)
+lda.fit(tf)
+
+<span class="hljs-comment"># 显示主题数 model.topic_word_</span>
+print(lda.components_)
+<span class="hljs-comment"># 几个主题就是几行 多少个关键词就是几列 </span>
+print(lda.components_.shape)                         
+
+<span class="hljs-comment"># 计算困惑度</span>
+print(<span class="hljs-string">u&#x27;困惑度：&#x27;</span>)
+print(lda.perplexity(tf,sub_sampling = <span class="hljs-literal">False</span>))
+
+<span class="hljs-comment"># 主题-关键词分布</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">print_top_words</span>(<span class="hljs-params">model, tf_feature_names, n_top_words</span>):</span>
+    <span class="hljs-keyword">for</span> topic_idx,topic <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(model.components_):  <span class="hljs-comment"># lda.component相当于model.topic_word_</span>
+        print(<span class="hljs-string">&#x27;Topic #%d:&#x27;</span> % topic_idx)
+        print(<span class="hljs-string">&#x27; &#x27;</span>.join([tf_feature_names[i] <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> topic.argsort()[:-n_top_words<span class="hljs-number">-1</span>:<span class="hljs-number">-1</span>]]))
+        print(<span class="hljs-string">&quot;&quot;</span>)
+
+<span class="hljs-comment"># 定义好函数之后 暂定每个主题输出前20个关键词</span>
+n_top_words = <span class="hljs-number">20</span>                                       
+tf_feature_names = tf_vectorizer.get_feature_names()
+<span class="hljs-comment"># 调用函数</span>
+print_top_words(lda, tf_feature_names, n_top_words)
+
+
+<span class="hljs-comment">#------------------------  第四步 可视化分析  ------------------------- </span>
+<span class="hljs-keyword">import</span> pyLDAvis
+<span class="hljs-keyword">import</span> pyLDAvis.sklearn
+
+<span class="hljs-comment">#pyLDAvis.enable_notebook()</span>
+
+data = pyLDAvis.sklearn.prepare(lda,tf,tf_vectorizer)
+print(data)
+
+<span class="hljs-comment">#显示图形</span>
+pyLDAvis.show(data)
+
+<span class="hljs-comment">#pyLDAvis.save_json(data,&#x27; fileobj.html&#x27;)</span></code></pre>
+<p>困惑度及各个主题下的关键词通过for循环显示如下，Topic1是疫情相关的主题词，Topic0是其他相关的主题。<br><pre><code class="hljs python">D:\桌面\新建文件夹&gt;python blog03_08_lda.py
+(<span class="hljs-number">138</span>, <span class="hljs-number">2000</span>)
+  (<span class="hljs-number">0</span>, <span class="hljs-number">403</span>)      <span class="hljs-number">1.0</span>
+  (<span class="hljs-number">1</span>, <span class="hljs-number">914</span>)      <span class="hljs-number">0.03179002916835669</span>
+  (<span class="hljs-number">1</span>, <span class="hljs-number">916</span>)      <span class="hljs-number">0.0234264095629235</span>
+  (<span class="hljs-number">1</span>, <span class="hljs-number">965</span>)      <span class="hljs-number">0.03491201537733099</span>
+  (<span class="hljs-number">1</span>, <span class="hljs-number">873</span>)      <span class="hljs-number">0.02309606736903826</span>
+  (<span class="hljs-number">1</span>, <span class="hljs-number">1475</span>)     <span class="hljs-number">0.032712252841322786</span>
+  (<span class="hljs-number">1</span>, <span class="hljs-number">959</span>)      <span class="hljs-number">0.030194163252955503</span>
+  (<span class="hljs-number">1</span>, <span class="hljs-number">158</span>)      <span class="hljs-number">0.027145424577929348</span>
+  (<span class="hljs-number">1</span>, <span class="hljs-number">1473</span>)     <span class="hljs-number">0.024499551271543872</span>
+  (<span class="hljs-number">1</span>, <span class="hljs-number">1144</span>)     <span class="hljs-number">0.058987094186498806</span>
+  (<span class="hljs-number">1</span>, <span class="hljs-number">436</span>)      <span class="hljs-number">0.023769709611473348</span>
+  (<span class="hljs-number">1</span>, <span class="hljs-number">273</span>)      <span class="hljs-number">0.030194163252955503</span>
+  (<span class="hljs-number">1</span>, <span class="hljs-number">1662</span>)     <span class="hljs-number">0.027145424577929348</span>
+  (<span class="hljs-number">1</span>, <span class="hljs-number">912</span>)      <span class="hljs-number">0.02160893613426232</span>
+  (<span class="hljs-number">1</span>, <span class="hljs-number">1612</span>)     <span class="hljs-number">0.03491201537733099</span>
+  (<span class="hljs-number">1</span>, <span class="hljs-number">1942</span>)     <span class="hljs-number">0.03491201537733099</span>
+  (<span class="hljs-number">1</span>, <span class="hljs-number">331</span>)      <span class="hljs-number">0.027145424577929348</span>
+  (<span class="hljs-number">1</span>, <span class="hljs-number">712</span>)      <span class="hljs-number">0.02884487784700509</span>
+  (<span class="hljs-number">1</span>, <span class="hljs-number">696</span>)      <span class="hljs-number">0.03374321119491412</span>
+  (<span class="hljs-number">1</span>, <span class="hljs-number">1375</span>)     <span class="hljs-number">0.03491201537733099</span>
+  (<span class="hljs-number">1</span>, <span class="hljs-number">431</span>)      <span class="hljs-number">0.02247058496874336</span>
+  (<span class="hljs-number">1</span>, <span class="hljs-number">1295</span>)     <span class="hljs-number">0.03491201537733099</span>
+  (<span class="hljs-number">1</span>, <span class="hljs-number">210</span>)      <span class="hljs-number">0.017702572081147446</span>
+  (<span class="hljs-number">1</span>, <span class="hljs-number">979</span>)      <span class="hljs-number">0.027145424577929348</span>
+  (<span class="hljs-number">1</span>, <span class="hljs-number">1323</span>)     <span class="hljs-number">0.03491201537733099</span>
+  :     :
+  (<span class="hljs-number">137</span>, <span class="hljs-number">233</span>)    <span class="hljs-number">0.032457418878176596</span>
+  (<span class="hljs-number">137</span>, <span class="hljs-number">282</span>)    <span class="hljs-number">0.02615992004194761</span>
+  (<span class="hljs-number">137</span>, <span class="hljs-number">70</span>)     <span class="hljs-number">0.052619347740271036</span>
+  (<span class="hljs-number">137</span>, <span class="hljs-number">21</span>)     <span class="hljs-number">0.04204615129757714</span>
+  (<span class="hljs-number">137</span>, <span class="hljs-number">559</span>)    <span class="hljs-number">0.05879281708622848</span>
+  (<span class="hljs-number">137</span>, <span class="hljs-number">1065</span>)   <span class="hljs-number">0.030850260311284926</span>
+  (<span class="hljs-number">137</span>, <span class="hljs-number">1910</span>)   <span class="hljs-number">0.02615992004194761</span>
+  (<span class="hljs-number">137</span>, <span class="hljs-number">5</span>)      <span class="hljs-number">0.0376578782866175</span>
+  (<span class="hljs-number">137</span>, <span class="hljs-number">1098</span>)   <span class="hljs-number">0.02154895843261173</span>
+  (<span class="hljs-number">137</span>, <span class="hljs-number">1847</span>)   <span class="hljs-number">0.022401353249301426</span>
+  (<span class="hljs-number">137</span>, <span class="hljs-number">575</span>)    <span class="hljs-number">0.023491381002374374</span>
+  (<span class="hljs-number">137</span>, <span class="hljs-number">1866</span>)   <span class="hljs-number">0.03969475253942053</span>
+  (<span class="hljs-number">137</span>, <span class="hljs-number">1896</span>)   <span class="hljs-number">0.07915772355142488</span>
+  (<span class="hljs-number">137</span>, <span class="hljs-number">919</span>)    <span class="hljs-number">0.023872748317938564</span>
+  (<span class="hljs-number">137</span>, <span class="hljs-number">1500</span>)   <span class="hljs-number">0.07728468461982171</span>
+  (<span class="hljs-number">137</span>, <span class="hljs-number">753</span>)    <span class="hljs-number">0.043373413973474426</span>
+  (<span class="hljs-number">137</span>, <span class="hljs-number">235</span>)    <span class="hljs-number">0.036290943551754246</span>
+  (<span class="hljs-number">137</span>, <span class="hljs-number">1043</span>)   <span class="hljs-number">0.02885156855169558</span>
+  (<span class="hljs-number">137</span>, <span class="hljs-number">1576</span>)   <span class="hljs-number">0.08423794621227862</span>
+  (<span class="hljs-number">137</span>, <span class="hljs-number">240</span>)    <span class="hljs-number">0.09461262585467081</span>
+  (<span class="hljs-number">137</span>, <span class="hljs-number">1908</span>)   <span class="hljs-number">0.12539855047313608</span>
+  (<span class="hljs-number">137</span>, <span class="hljs-number">1435</span>)   <span class="hljs-number">0.1301998889606912</span>
+  (<span class="hljs-number">137</span>, <span class="hljs-number">854</span>)    <span class="hljs-number">0.08359903364875737</span>
+  (<span class="hljs-number">137</span>, <span class="hljs-number">1484</span>)   <span class="hljs-number">0.09174653065996949</span>
+  (<span class="hljs-number">137</span>, <span class="hljs-number">1044</span>)   <span class="hljs-number">0.02885156855169558</span>
+[[<span class="hljs-number">1.47998182</span> <span class="hljs-number">1.1938479</span>  <span class="hljs-number">0.93516535</span> ... <span class="hljs-number">0.64108976</span> <span class="hljs-number">0.91951438</span> <span class="hljs-number">0.71990474</span>]
+ [<span class="hljs-number">0.50918993</span> <span class="hljs-number">0.56496607</span> <span class="hljs-number">0.50559418</span> ... <span class="hljs-number">0.50385102</span> <span class="hljs-number">0.50605441</span> <span class="hljs-number">0.50574252</span>]]
+(<span class="hljs-number">2</span>, <span class="hljs-number">2000</span>)
+困惑度：
+<span class="hljs-number">4095.2085280249858</span>
+Topic <span class="hljs-comment">#0:</span>
+企业 疫情 防控 服务 复工 协会 工作 社会 复产 组织 会员 心理 抗疫 及时 提供 饲料 社区 积极 就业 行业协会
+
+Topic <span class="hljs-comment">#1:</span>
+内容 美国 饭店 球队 赛区 酒店 客源 希腊 雅典 实验室 中超联赛 转会 广州 开幕式 猛犸 民众 日期 赛季 大连 苏州
+
+PreparedData(topic_coordinates=              x    y  topics  cluster      Freq
+topic
+<span class="hljs-number">0</span>      <span class="hljs-number">0.024078</span>  <span class="hljs-number">0.0</span>       <span class="hljs-number">1</span>        <span class="hljs-number">1</span>  <span class="hljs-number">89.66411</span>
+<span class="hljs-number">1</span>     <span class="hljs-number">-0.024078</span>  <span class="hljs-number">0.0</span>       <span class="hljs-number">2</span>        <span class="hljs-number">1</span>  <span class="hljs-number">10.33589</span>, topic_info=     Term      Freq     Total Category  logprob  loglift
+<span class="hljs-number">403</span>    内容  <span class="hljs-number">0.000000</span>  <span class="hljs-number">0.000000</span>  Default  <span class="hljs-number">30.0000</span>  <span class="hljs-number">30.0000</span>
+<span class="hljs-number">1604</span>   美国  <span class="hljs-number">0.000000</span>  <span class="hljs-number">0.000000</span>  Default  <span class="hljs-number">29.0000</span>  <span class="hljs-number">29.0000</span>
+<span class="hljs-number">1975</span>   饭店  <span class="hljs-number">0.000000</span>  <span class="hljs-number">0.000000</span>  Default  <span class="hljs-number">28.0000</span>  <span class="hljs-number">28.0000</span>
+<span class="hljs-number">1865</span>   酒店  <span class="hljs-number">0.000000</span>  <span class="hljs-number">0.000000</span>  Default  <span class="hljs-number">27.0000</span>  <span class="hljs-number">27.0000</span>
+<span class="hljs-number">1404</span>   球队  <span class="hljs-number">0.000000</span>  <span class="hljs-number">0.000000</span>  Default  <span class="hljs-number">26.0000</span>  <span class="hljs-number">26.0000</span>
+<span class="hljs-meta">... </span>  ...       ...       ...      ...      ...      ...
+<span class="hljs-number">1403</span>   球员  <span class="hljs-number">0.093992</span>  <span class="hljs-number">0.367312</span>   Topic2  <span class="hljs-number">-7.2237</span>   <span class="hljs-number">0.9065</span>
+<span class="hljs-number">886</span>    平等  <span class="hljs-number">0.089363</span>  <span class="hljs-number">0.349664</span>   Topic2  <span class="hljs-number">-7.2742</span>   <span class="hljs-number">0.9053</span>
+<span class="hljs-number">895</span>    广州  <span class="hljs-number">0.104099</span>  <span class="hljs-number">0.468188</span>   Topic2  <span class="hljs-number">-7.1215</span>   <span class="hljs-number">0.7660</span>
+<span class="hljs-number">1529</span>   窗口  <span class="hljs-number">0.096892</span>  <span class="hljs-number">0.421790</span>   Topic2  <span class="hljs-number">-7.1933</span>   <span class="hljs-number">0.7986</span>
+<span class="hljs-number">1304</span>   民众  <span class="hljs-number">0.099578</span>  <span class="hljs-number">0.576540</span>   Topic2  <span class="hljs-number">-7.1659</span>   <span class="hljs-number">0.5134</span>
+
+[<span class="hljs-number">94</span> rows x <span class="hljs-number">6</span> columns], token_table=      Topic      Freq  Term
+term
+<span class="hljs-number">134</span>       <span class="hljs-number">1</span>  <span class="hljs-number">0.810396</span>    中国
+<span class="hljs-number">241</span>       <span class="hljs-number">1</span>  <span class="hljs-number">1.023200</span>    企业
+<span class="hljs-number">255</span>       <span class="hljs-number">1</span>  <span class="hljs-number">1.017123</span>    会员
+<span class="hljs-number">324</span>       <span class="hljs-number">1</span>  <span class="hljs-number">0.898946</span>    做好
+<span class="hljs-number">528</span>       <span class="hljs-number">1</span>  <span class="hljs-number">1.054671</span>    协会
+<span class="hljs-number">565</span>       <span class="hljs-number">1</span>  <span class="hljs-number">1.055105</span>    及时
+<span class="hljs-number">715</span>       <span class="hljs-number">1</span>  <span class="hljs-number">1.000085</span>    复产
+<span class="hljs-number">717</span>       <span class="hljs-number">1</span>  <span class="hljs-number">0.927915</span>    复工
+<span class="hljs-number">736</span>       <span class="hljs-number">1</span>  <span class="hljs-number">0.886561</span>   大学生
+<span class="hljs-number">800</span>       <span class="hljs-number">1</span>  <span class="hljs-number">0.942634</span>    宣传
+<span class="hljs-number">833</span>       <span class="hljs-number">1</span>  <span class="hljs-number">1.133821</span>    就业
+<span class="hljs-number">854</span>       <span class="hljs-number">1</span>  <span class="hljs-number">0.886084</span>    工作
+<span class="hljs-number">919</span>       <span class="hljs-number">1</span>  <span class="hljs-number">0.872452</span>    开展
+<span class="hljs-number">954</span>       <span class="hljs-number">1</span>  <span class="hljs-number">0.917835</span>    心理
+<span class="hljs-number">1044</span>      <span class="hljs-number">1</span>  <span class="hljs-number">1.030462</span>    抗疫
+<span class="hljs-number">1098</span>      <span class="hljs-number">1</span>  <span class="hljs-number">1.068630</span>    提供
+<span class="hljs-number">1161</span>      <span class="hljs-number">1</span>  <span class="hljs-number">0.929940</span>    新冠
+<span class="hljs-number">1229</span>      <span class="hljs-number">1</span>  <span class="hljs-number">1.078302</span>    服务
+<span class="hljs-number">1383</span>      <span class="hljs-number">1</span>  <span class="hljs-number">0.851659</span>    物业
+<span class="hljs-number">1386</span>      <span class="hljs-number">1</span>  <span class="hljs-number">0.894247</span>    物资
+<span class="hljs-number">1435</span>      <span class="hljs-number">1</span>  <span class="hljs-number">0.981779</span>    疫情
+<span class="hljs-number">1484</span>      <span class="hljs-number">1</span>  <span class="hljs-number">0.977973</span>    社会
+<span class="hljs-number">1491</span>      <span class="hljs-number">1</span>  <span class="hljs-number">1.099239</span>    社区
+<span class="hljs-number">1512</span>      <span class="hljs-number">1</span>  <span class="hljs-number">1.128643</span>    积极
+<span class="hljs-number">1576</span>      <span class="hljs-number">1</span>  <span class="hljs-number">1.006787</span>    组织
+<span class="hljs-number">1637</span>      <span class="hljs-number">1</span>  <span class="hljs-number">0.923467</span>    肺炎
+<span class="hljs-number">1685</span>      <span class="hljs-number">1</span>  <span class="hljs-number">0.825705</span>    行业
+<span class="hljs-number">1686</span>      <span class="hljs-number">1</span>  <span class="hljs-number">0.797830</span>  行业协会
+<span class="hljs-number">1780</span>      <span class="hljs-number">1</span>  <span class="hljs-number">1.125439</span>    赛事
+<span class="hljs-number">1908</span>      <span class="hljs-number">1</span>  <span class="hljs-number">1.065603</span>    防控
+<span class="hljs-number">1910</span>      <span class="hljs-number">1</span>  <span class="hljs-number">0.941367</span>    防疫
+<span class="hljs-number">1976</span>      <span class="hljs-number">1</span>  <span class="hljs-number">1.075012</span>    饲料, R=<span class="hljs-number">30</span>, lambda_step=<span class="hljs-number">0.01</span>, plot_opts=&#123;<span class="hljs-string">&#x27;xlab&#x27;</span>: <span class="hljs-string">&#x27;PC1&#x27;</span>, <span class="hljs-string">&#x27;ylab&#x27;</span>: <span class="hljs-string">&#x27;PC2&#x27;</span>&#125;, topic_order=[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>])
+Serving to http://<span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>:<span class="hljs-number">8888</span>/    [Ctrl-C to exit]
+<span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span> - - [<span class="hljs-number">29</span>/Dec/<span class="hljs-number">2020</span> <span class="hljs-number">22</span>:<span class="hljs-number">23</span>:<span class="hljs-number">43</span>] <span class="hljs-string">&quot;GET / HTTP/1.1&quot;</span> <span class="hljs-number">200</span> -
+<span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span> - - [<span class="hljs-number">29</span>/Dec/<span class="hljs-number">2020</span> <span class="hljs-number">22</span>:<span class="hljs-number">23</span>:<span class="hljs-number">44</span>] <span class="hljs-string">&quot;GET /LDAvis.css HTTP/1.1&quot;</span> <span class="hljs-number">200</span> -
+<span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span> - - [<span class="hljs-number">29</span>/Dec/<span class="hljs-number">2020</span> <span class="hljs-number">22</span>:<span class="hljs-number">23</span>:<span class="hljs-number">44</span>] <span class="hljs-string">&quot;GET /d3.js HTTP/1.1&quot;</span> <span class="hljs-number">200</span> -
+<span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span> - - [<span class="hljs-number">29</span>/Dec/<span class="hljs-number">2020</span> <span class="hljs-number">22</span>:<span class="hljs-number">23</span>:<span class="hljs-number">44</span>] <span class="hljs-string">&quot;GET /LDAvis.js HTTP/1.1&quot;</span> <span class="hljs-number">200</span> -
+<span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span> - - [<span class="hljs-number">29</span>/Dec/<span class="hljs-number">2020</span> <span class="hljs-number">22</span>:<span class="hljs-number">23</span>:<span class="hljs-number">44</span>] code <span class="hljs-number">404</span>, message Not Found
+<span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span> - - [<span class="hljs-number">29</span>/Dec/<span class="hljs-number">2020</span> <span class="hljs-number">22</span>:<span class="hljs-number">23</span>:<span class="hljs-number">44</span>] <span class="hljs-string">&quot;GET /favicon.ico HTTP/1.1&quot;</span> <span class="hljs-number">404</span> -</code></pre><br>生成对应的图形浏览器会打开，如下图所示：</p>
+<p><img src="https://gitee.com/bai_xiao_fei/picture/raw/master/PicGo/QQ%E6%88%AA%E5%9B%BE20201229222500.png" srcset="/img/loading.gif" alt=""><br><img src="https://gitee.com/bai_xiao_fei/picture/raw/master/PicGo/QQ%E6%88%AA%E5%9B%BE20201229222450.png" srcset="/img/loading.gif" alt=""><br><img src="https://gitee.com/bai_xiao_fei/picture/raw/master/PicGo/QQ%E6%88%AA%E5%9B%BE20201229222441.png" srcset="/img/loading.gif" alt=""></p>
+<p>注意：LDA主题分布分析需要设置不同的主题值，这里是2，也可以是3、4、5等等。那么如何确定最佳主题数呢？困惑数又有什么用呢？如果存在语义知识又怎么处理呢？主题如何能更加准确定位呢？读者可以带着这些思考去探索。加油~</p>
+<h1 id="八-总结"><a href="#八-总结" class="headerlink" title="八.总结"></a>八.总结</h1><ul>
+<li>实时数据爬取</li>
+<li>中文文本分词及高频词提取</li>
+<li>词云可视化分析</li>
+<li>TF-IDF权重计算和文本聚类分析</li>
+<li>层次聚类分析</li>
+<li>LDA主题模型分布</li>
+</ul>
+<h1 id="参考文献："><a href="#参考文献：" class="headerlink" title="参考文献："></a>参考文献：</h1><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://blog.csdn.net/Eastmount/article/details/64438407"> [python数据挖掘课程] 十三.WordCloud词云配置过程及词频分析 - Eastmount</a>
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://blog.csdn.net/Eastmount/article/details/50824215">[python] LDA处理文档主题分布代码入门笔记 - Eastmount</a>
+<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://blog.csdn.net/Eastmount/article/details/50545937">[python] Kmeans文本聚类算法+PAC降维+Matplotlib显示聚类图像 - Eastmount</a>
+<a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:4" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://blog.csdn.net/Eastmount/article/details/50256163">[python] 使用Jieba工具中文分词及文本聚类概念 - Eastmount</a>
+<a href="#fnref:4" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:5" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://bbs.pinggu.org/thread-7016858-1-1.html">[原创博文] 教你使用Pyecharts绘制词云图 - 浮世若离</a>
+<a href="#fnref:5" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:6" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42379006/article/details/80839464">用pyecharts绘制词云WordCloud - pennyyangpei</a>
+<a href="#fnref:6" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:7" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://blog.csdn.net/shineych/article/details/104225239">用Python pyecharts v1.x 绘制图形（二）:折线图、折线面积图、散点图、雷达图、箱线图、词云图 - 蒜泥的冬天</a>
+<a href="#fnref:7" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:8" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://blog.csdn.net/Eastmount/article/details/91380607">[python数据挖掘课程] 二十八.基于LDA和pyLDAvis的主题挖掘及可视化分析 - Eastmount</a>
+<a href="#fnref:8" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:9" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://blog.csdn.net/tan_handsome/article/details/79371076">Python层次聚类sci.cluster.hierarchy.linkage函数详解 - tan_handsome</a>
+<a href="#fnref:9" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:10" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://blog.csdn.net/Eastmount/article/details/104698926">[Pyhon疫情大数据分析] 三.新闻信息抓取及词云可视化、文本聚类和LDA主题模型文本挖掘</a>
+<a href="#fnref:10" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:11" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43389959/article/details/83240988">python中csv文件中数据添加到MongoDB数据库</a>
+<a href="#fnref:11" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%AD%A6%E4%B9%A0/python/">python</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/python/">python</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%96%AB%E6%83%85%E5%88%86%E6%9E%90/">疫情分析</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E6%8D%AE%E7%88%AC%E5%8F%96/">数据爬取</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/">数据挖掘</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/">数据处理</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%96%B0%E9%97%BB%E4%BF%A1%E6%81%AF/">新闻信息</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/01/09/hexo/Github%20Pages%20%E5%92%8C%20Hexo%20%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Github Pages 和 Hexo 搭建自己的博客</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/12/22/elk/ELK%E5%AE%9E%E6%97%B6%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E5%B9%B3%E5%8F%B0/">
+                        <span class="hidden-mobile">ELK实时日志分析平台</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "gn6pMOQ2Y8601y9txmR9s4DN-gzGzoHsz",
+          app_key: "KYnH8MyyiQBXK8hMwO7HevEw",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?32cfe221d23ea3ac2ca847f1e865c570";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
